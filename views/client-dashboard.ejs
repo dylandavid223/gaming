@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GameHub | Client Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #0d0221;
+        color: #fff;
+        font-family: "Rajdhani", sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      .scanlines {
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.02) 0px,
+          rgba(255, 255, 255, 0.02) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+        z-index: 100;
+        mix-blend-mode: lighten;
+        animation: scanline 2s linear infinite;
+      }
+      @keyframes scanline {
+        0% {
+          background-position-y: 0;
+        }
+        100% {
+          background-position-y: 4px;
+        }
+      }
+      .dashboard-container {
+        max-width: 1200px;
+        margin: 60px auto 0 auto;
+        padding: 30px;
+        background: rgba(13, 2, 33, 0.92);
+        border-radius: 18px;
+        box-shadow: 0 0 60px #05d9e888;
+        position: relative;
+        z-index: 2;
+      }
+      .logo {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.8rem;
+        color: #05d9e8;
+        text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d;
+        margin-bottom: 10px;
+        letter-spacing: 3px;
+        text-align: center;
+        animation: flicker 2s infinite alternate;
+      }
+      @keyframes flicker {
+        0% {
+          opacity: 1;
+          text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d;
+        }
+        50% {
+          opacity: 0.85;
+          text-shadow: 0 0 20px #ff2a6d, 0 0 40px #05d9e8;
+        }
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d;
+        }
+      }
+      .welcome {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #b3eaff;
+        margin-bottom: 40px;
+      }
+      .services-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        justify-content: center;
+      }
+      .service-card {
+        background: rgba(20, 10, 40, 0.95);
+        border: 2px solid #05d9e8;
+        border-radius: 14px;
+        width: 320px;
+        box-shadow: 0 0 20px #d300c5;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+        animation: cardPop 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        display: flex;
+        flex-direction: column;
+      }
+      .service-card:hover {
+        transform: scale(1.04) rotate(-1deg);
+        box-shadow: 0 0 40px #ff2a6d;
+        border-color: #ff2a6d;
+      }
+      @keyframes cardPop {
+        0% {
+          transform: scale(0.8) translateY(40px);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+      .service-img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        filter: brightness(0.85) saturate(1.2);
+        border-bottom: 2px solid #05d9e8;
+      }
+      .service-content {
+        padding: 22px 18px 18px 18px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .service-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.3rem;
+        color: #05d9e8;
+        margin-bottom: 10px;
+        text-shadow: 0 0 6px #d300c5;
+      }
+      .service-desc {
+        color: #fff;
+        font-size: 1.05rem;
+        margin-bottom: 18px;
+        min-height: 48px;
+        flex: 1;
+      }
+      .service-btn {
+        display: inline-block;
+        padding: 10px 28px;
+        font-size: 1rem;
+        font-family: "Orbitron", sans-serif;
+        color: #fff;
+        background: linear-gradient(45deg, #05d9e8, #d300c5);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ff2a6d;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.3s, box-shadow 0.3s;
+        margin-top: 8px;
+      }
+      .service-btn:hover {
+        background: linear-gradient(45deg, #ff2a6d, #05d9e8);
+        box-shadow: 0 0 20px #d300c5;
+      }
+      .logout-link {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        color: #ff2a6d;
+        font-family: "Orbitron", sans-serif;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border-bottom: 1px dashed #ff2a6d;
+        transition: color 0.2s;
+      }
+      .logout-link:hover {
+        color: #05d9e8;
+        border-bottom: 1px solid #05d9e8;
+      }
+      @media (max-width: 900px) {
+        .services-grid {
+          flex-direction: column;
+          align-items: center;
+        }
+        .service-card {
+          width: 90vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header', { user: username }) %>
+    <div class="scanlines"></div>
+    <div class="dashboard-container">
+      <div class="logo">GameHub</div>
+      <div class="welcome">
+        Welcome, <span style="color: #ff2a6d"><%= username %></span>!<br />
+        Explore our cyberpunk services below.
+      </div>
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <img
+            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"
+            class="service-img"
+            alt="Games"
+          />
+          <div class="service-content">
+            <div class="service-title">Browse Games</div>
+            <div class="service-desc">
+              Explore our vast library of games, filter by genre, and discover
+              your next adventure.
+            </div>
+            <a href="/games" class="service-btn">View Games</a>
+          </div>
+        </div>
+        <!-- Service 2 -->
+        <div class="service-card">
+          <img
+            src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80"
+            class="service-img"
+            alt="Developers"
+          />
+          <div class="service-content">
+            <div class="service-title">Meet Developers</div>
+            <div class="service-desc">
+              See the creative minds behind your favorite games and learn more
+              about them.
+            </div>
+            <a href="/developers" class="service-btn"
+              >View Developers</a
+            >
+          </div>
+        </div>
+        <!-- Service 3 -->
+        <div class="service-card">
+          <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+            class="service-img"
+            alt="Library"
+          />
+          <div class="service-content">
+            <div class="service-title">Your Game Library</div>
+            <div class="service-desc">
+              Access and manage your personal game collection, achievements, and
+              stats.
+            </div>
+            <a href="/library" class="service-btn">My Library</a>
+          </div>
+        </div>
+        <!-- Service 4 -->
+        <div class="service-card">
+          <img
+            src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+            class="service-img"
+            alt="Profile"
+          />
+          <div class="service-content">
+            <div class="service-title">Profile & Settings</div>
+            <div class="service-desc">
+              Update your profile, set your preferences, and customize your
+              cyberpunk experience.
+            </div>
+            <a href="/profile" class="service-btn">Profile</a>
+          </div>
+        </div>
+        <!-- Service 5 -->
+        <div class="service-card">
+          <img
+            src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80"
+            class="service-img"
+            alt="Add Game"
+          />
+          <div class="service-content">
+            <div class="service-title">Add a New Game</div>
+            <div class="service-desc">
+              Expand our library by adding new games for everyone to enjoy.
+            </div>
+            <a href="/add-game" class="service-btn">Add Game</a>
+          </div>
+        </div>
+
+        </div>
+        
+        </div>
+      
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

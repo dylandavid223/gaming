@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Games | GameHub</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #0d0221;
+        color: #fff;
+        font-family: "Rajdhani", sans-serif;
+        margin: 0;
+        min-height: 100vh;
+      }
+      .games-container {
+        max-width: 1200px;
+        margin: 60px auto 0 auto;
+        background: rgba(13, 2, 33, 0.92);
+        border-radius: 18px;
+        box-shadow: 0 0 60px #05d9e888;
+        padding: 40px 20px 60px 20px;
+        position: relative;
+        z-index: 2;
+      }
+      .games-title {
+        font-family: "Orbitron", sans-serif;
+        color: #05d9e8;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        text-align: center;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d;
+        animation: flicker 2s infinite alternate;
+      }
+      @keyframes flicker {
+        0% {
+          opacity: 1;
+          text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d;
+        }
+        50% {
+          opacity: 0.85;
+          text-shadow: 0 0 20px #ff2a6d, 0 0 40px #05d9e8;
+        }
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d;
+        }
+      }
+      .games-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        justify-content: center;
+      }
+      .game-card {
+        background: rgba(20, 10, 40, 0.95);
+        border: 2px solid #05d9e8;
+        border-radius: 14px;
+        width: 320px;
+        box-shadow: 0 0 20px #d300c5;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        position: relative;
+        animation: cardPop 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        display: flex;
+        flex-direction: column;
+        min-height: 480px;
+      }
+      .game-card:hover {
+        transform: scale(1.04) rotate(-1deg);
+        box-shadow: 0 0 40px #ff2a6d;
+        border-color: #ff2a6d;
+      }
+      @keyframes cardPop {
+        0% {
+          transform: scale(0.8) translateY(40px);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+      .game-cover {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 2px solid #05d9e8;
+        background: #222;
+      }
+      .game-title {
+        font-family: "Orbitron", sans-serif;
+        color: #ff2a6d;
+        font-size: 1.3rem;
+        margin: 18px 0 8px 0;
+        text-align: center;
+        letter-spacing: 1px;
+        text-shadow: 0 0 6px #d300c5;
+      }
+      .game-info {
+        color: #b3eaff;
+        font-size: 1rem;
+        margin-bottom: 6px;
+        text-align: center;
+      }
+      .game-desc {
+        color: #fff;
+        font-size: 1.05rem;
+        margin: 12px 0 0 0;
+        text-align: center;
+        flex-grow: 1;
+        padding: 0 10px;
+      }
+      .game-footer {
+        margin-top: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+      .game-btn {
+        display: inline-block;
+        padding: 8px 24px;
+        font-size: 1rem;
+        font-family: "Orbitron", sans-serif;
+        color: #fff;
+        background: linear-gradient(45deg, #05d9e8, #d300c5);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ff2a6d;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.3s, box-shadow 0.3s;
+        margin-top: 8px;
+      }
+      .game-btn:hover {
+        background: linear-gradient(45deg, #ff2a6d, #05d9e8);
+        box-shadow: 0 0 20px #d300c5;
+      }
+      @media (max-width: 900px) {
+        .games-grid {
+          flex-direction: column;
+          align-items: center;
+        }
+        .game-card {
+          width: 95vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header', { user: username }) %>
+    <div class="games-container">
+      <div class="games-title">Games Library</div>
+      <div class="games-grid">
+        <% games.forEach(function(game) { %>
+        <div class="game-card">
+          <img
+            src="<%= game.cover_image_url || '/img/default-cover.jpg' %>"
+            class="game-cover"
+            alt="Game Coverrrrrr"
+          />
+          <div class="game-title"><%= game.title %></div>
+          <div class="game-info">
+            <b>Genre:</b> <%= game.genre %> | <b>Rating:</b> <%= game.rating %>
+          </div>
+          <div class="game-info">
+            <b>Release:</b> <%= game.release_date ?
+            game.release_date.toISOString().slice(0,10) : 'N/A' %>
+          </div>
+          <div class="game-info"><b>Platforms:</b> <%= game.platforms %></div>
+          <div class="game-desc"><%= game.description %></div>
+          <div class="game-footer">
+            <a
+              href="<%= game.trailer_url || '#' %>"
+              class="game-btn"
+              target="_blank"
+              >Watch Trailer</a
+            >
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

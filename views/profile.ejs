@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>USER PROFILE // NEON NEXUS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    /* CYBERPUNK BASE STYLES */
+    :root {
+      --neon-pink: #ff2a6d;
+      --neon-blue: #05d9e8;
+      --neon-purple: #d300c5;
+      --matrix-green: #00ff41;
+      --dark-bg: #0d0221;
+      --darker-bg: #050110;
+      --grid-color: rgba(5, 217, 232, 0.1);
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: white;
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* GLOW EFFECTS */
+    @keyframes text-glow {
+      0% { text-shadow: 0 0 5px var(--neon-blue); }
+      50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-purple); }
+      100% { text-shadow: 0 0 5px var(--neon-blue); }
+    }
+
+    @keyframes border-glow {
+      0% { box-shadow: 0 0 10px var(--neon-blue); }
+      50% { box-shadow: 0 0 25px var(--neon-blue), 0 0 35px var(--neon-purple); }
+      100% { box-shadow: 0 0 10px var(--neon-blue); }
+    }
+
+    /* MAIN CONTAINER */
+    .profile-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: linear-gradient(145deg, rgba(13,2,33,0.95) 0%, rgba(25,5,60,0.95) 100%);
+      border-radius: 0;
+      border: 1px solid var(--neon-blue);
+      box-shadow: 
+        0 0 15px var(--neon-blue),
+        inset 0 0 10px var(--neon-purple);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-container::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(
+        45deg,
+        var(--neon-blue),
+        var(--neon-purple),
+        var(--neon-pink),
+        var(--neon-blue)
+      );
+      background-size: 400% 400%;
+      z-index: -1;
+      filter: blur(20px);
+      opacity: 0.7;
+      animation: gradient-pulse 8s ease infinite;
+    }
+
+    @keyframes gradient-pulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* TYPOGRAPHY */
+    .profile-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-blue);
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      animation: text-glow 3s infinite;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .profile-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-blue), transparent);
+    }
+
+    /* PROFILE PICTURE */
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--neon-blue);
+      margin: 0 auto 30px auto;
+      display: block;
+      box-shadow: 0 0 20px var(--neon-purple);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-pic::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      background: linear-gradient(
+        45deg,
+        var(--neon-blue),
+        var(--neon-purple),
+        transparent
+      );
+      z-index: -1;
+      animation: rotate 4s linear infinite;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px var(--neon-pink);
+      border-color: var(--neon-pink);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* PROFILE INFO */
+    .profile-info {
+      margin-bottom: 25px;
+      padding: 10px;
+      border-left: 3px solid var(--neon-blue);
+      transition: all 0.3s ease;
+    }
+
+    .profile-info:hover {
+      border-left-color: var(--neon-pink);
+      background: rgba(255, 42, 109, 0.1);
+    }
+
+    .profile-label {
+      color: var(--neon-pink);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      display: inline-block;
+      min-width: 150px;
+      text-transform: uppercase;
+    }
+
+    .profile-value {
+      color: #b3eaff;
+      font-size: 1rem;
+      margin-left: 10px;
+    }
+
+    /* BALANCE STYLING */
+    .profile-info:nth-last-child(2) .profile-value {
+      color: var(--matrix-green);
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px var(--matrix-green);
+    }
+
+    /* BIO STYLING */
+    .profile-bio {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(20, 5, 40, 0.5);
+      border: 1px dashed var(--neon-blue);
+      position: relative;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .profile-bio::before {
+      content: "USER BIO:";
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--dark-bg);
+      padding: 0 10px;
+      color: var(--neon-blue);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      font-style: normal;
+    }
+
+    /* SCANLINES EFFECT */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        rgba(0, 255, 65, 0.05) 1px,
+        transparent 1px
+      );
+      background-size: 100% 2px;
+      pointer-events: none;
+      z-index: 1000;
+      animation: scanline 8s linear infinite;
+    }
+
+    @keyframes scanline {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(100%); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .profile-container {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .profile-title {
+        font-size: 1.8rem;
+      }
+      
+      .profile-label {
+        display: block;
+        margin-bottom: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/header', { user: username }) %>
+  
+  <div class="profile-container">
+    <div class="profile-title">// USER PROFILE //</div>
+    
+    <% if (user.profile_picture) { %>
+      <img src="<%= user.profile_picture %>" class="profile-pic" alt="PROFILE IMAGE">
+    <% } else { %>
+      <div class="profile-pic" style="background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));"></div>
+    <% } %>
+    
+    <div class="profile-info">
+      <span class="profile-label">USERNAME:</span> 
+      <span class="profile-value"><%= user.username %></span>
+    </div>
+    
+    <div class="profile-info">
+      <span class="profile-label">EMAIL:</span> 
+      <span class="profile-value"><%= user.email %></span>
+    </div>
+    
+    <div class="profile-info">
+      <span class="profile-label">LOCATION:</span> 
+      <span class="profile-value"><%= user.country || 'UNKNOWN' %></span>
+    </div>
+    
+    <div class="profile-info">
+      <span class="profile-label">DATE OF BIRTH:</span> 
+      <span class="profile-value"><%= user.date_of_birth ? user.date_of_birth.toISOString().slice(0,10) : 'CLASSIFIED' %></span>
+    </div>
+    
+    <div class="profile-info">
+      <span class="profile-label">CREDITS:</span> 
+      <span class="profile-value">⏣ <%= user.balance || '0' %></span>
+    </div>
+    
+    <div class="profile-bio">
+      <%= user.bio || 'NO BIO DATA AVAILABLE' %>
+    </div>
+  </div>
+  
+  <%- include('partials/footer') %>
+
+  <script>
+    // Add interactive effects
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate profile container entrance
+      const container = document.querySelector('.profile-container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        container.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 300);
+      
+      // Add hover effects to info items
+      const infoItems = document.querySelectorAll('.profile-info');
+      infoItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const value = item.querySelector('.profile-value');
+          value.style.textShadow = '0 0 10px var(--neon-blue)';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+          const value = item.querySelector('.profile-value');
+          value.style.textShadow = 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

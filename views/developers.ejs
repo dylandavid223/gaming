@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Developers | Neon Nexus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    /* CYBERPUNK BASE STYLES */
+    :root {
+      --neon-pink: #ff2a6d;
+      --neon-blue: #05d9e8;
+      --neon-purple: #d300c5;
+      --matrix-green: #00ff41;
+      --dark-bg: #0d0221;
+      --darker-bg: #050110;
+      --grid-color: rgba(5, 217, 232, 0.1);
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: white;
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* GLOW EFFECTS */
+    @keyframes text-glow {
+      0% { text-shadow: 0 0 5px var(--neon-blue); }
+      50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-purple); }
+      100% { text-shadow: 0 0 5px var(--neon-blue); }
+    }
+
+    @keyframes border-glow {
+      0% { box-shadow: 0 0 10px var(--neon-blue); }
+      50% { box-shadow: 0 0 25px var(--neon-blue), 0 0 35px var(--neon-purple); }
+      100% { box-shadow: 0 0 10px var(--neon-blue); }
+    }
+
+    /* MAIN CONTAINER */
+    .dev-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      background: linear-gradient(145deg, rgba(13,2,33,0.95) 0%, rgba(25,5,60,0.95) 100%);
+      border-radius: 0;
+      border: 1px solid var(--neon-blue);
+      box-shadow: 
+        0 0 15px var(--neon-blue),
+        inset 0 0 10px var(--neon-purple);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dev-container::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(
+        45deg,
+        var(--neon-blue),
+        var(--neon-purple),
+        var(--neon-pink),
+        var(--neon-blue)
+      );
+      background-size: 400% 400%;
+      z-index: -1;
+      filter: blur(20px);
+      opacity: 0.7;
+      animation: gradient-pulse 8s ease infinite;
+    }
+
+    @keyframes gradient-pulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* TYPOGRAPHY */
+    .dev-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-blue);
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      animation: text-glow 3s infinite;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .dev-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-blue), transparent);
+    }
+
+    /* DEVELOPER CARDS */
+    .dev-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .dev-card {
+      background: rgba(20, 5, 40, 0.8);
+      border: 1px solid var(--neon-blue);
+      border-radius: 0;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+    }
+
+    .dev-card::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(
+        45deg,
+        var(--neon-blue),
+        var(--neon-purple),
+        transparent
+      );
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .dev-card:hover {
+      transform: translateY(-5px) rotate(1deg);
+      border-color: var(--neon-pink);
+      box-shadow: 
+        0 5px 15px var(--neon-purple),
+        0 0 30px var(--neon-pink);
+    }
+
+    .dev-card:hover::before {
+      opacity: 0.7;
+    }
+
+    .dev-name {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-pink);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+      border-bottom: 1px dashed var(--neon-blue);
+      padding-bottom: 8px;
+    }
+
+    .dev-info {
+      color: #b3eaff;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .dev-info b {
+      color: var(--matrix-green);
+      font-weight: normal;
+    }
+
+    .dev-link {
+      color: var(--neon-blue);
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .dev-link:hover {
+      color: var(--neon-pink);
+    }
+
+    .dev-link::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--neon-pink);
+      transition: width 0.3s ease;
+    }
+
+    .dev-link:hover::after {
+      width: 100%;
+    }
+
+    /* SCANLINES EFFECT */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        rgba(0, 255, 65, 0.05) 1px,
+        transparent 1px
+      );
+      background-size: 100% 2px;
+      pointer-events: none;
+      z-index: 1000;
+      animation: scanline 8s linear infinite;
+    }
+
+    @keyframes scanline {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(100%); }
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/header', { user: username }) %>
+  
+  <div class="dev-container">
+    <div class="dev-title">// DEVELOPER DATABASE //</div>
+    <div class="dev-list">
+      <% developers.forEach(function(dev) { %>
+        <div class="dev-card">
+          <div class="dev-name">> <%= dev.name %></div>
+          <div class="dev-info"><b>EMAIL:</b> <%= dev.email %></div>
+          <div class="dev-info"><b>LOCATION:</b> <%= dev.headquarters %></div>
+          <div class="dev-info"><b>EST:</b> <%= dev.established_date ? dev.established_date.toISOString().slice(0,10) : 'N/A' %></div>
+          <div class="dev-info"><b>URL:</b> <a href="<%= dev.website %>" class="dev-link" target="_blank">[ACCESS]</a></div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  
+  <%- include('partials/footer') %>
+
+  <script>
+    // Add terminal-like typing effect to cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.dev-card');
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+      });
+
+      setTimeout(() => {
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, i * 100);
+        });
+      }, 500);
+    });
+  </script>
+</body>
+</html>
